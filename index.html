@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BARBELIN LISA — Certification Desserts de Restaurant 2025/2026</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #e8c96a;
+      --gold-dark: #9c7d32;
+      --black: #080808;
+      --black-soft: #111111;
+      --black-card: #161616;
+      --cream: #f5f0e8;
+      --cream-muted: #bfb89e;
+      --border: rgba(201,168,76,0.22);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius:2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      display: flex; align-items:center; justify-content:space-between;
+      padding: 18px 48px;
+      background: linear-gradient(to bottom, rgba(8,8,8,.96), transparent);
+      backdrop-filter: blur(3px);
+    }
+    .nav-logo {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1rem; letter-spacing:.3em; color:var(--gold); text-transform:uppercase;
+    }
+    .nav-links { display:flex; gap:28px; list-style:none; }
+    .nav-links a {
+      color:var(--cream-muted); text-decoration:none;
+      font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; transition:color .3s;
+    }
+    .nav-links a:hover { color:var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; text-align:center;
+      position:relative; overflow:hidden; padding:100px 40px 80px;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,.03) 0%, transparent 60%);
+    }
+    .hero-logo {
+      width:140px; height:140px; object-fit:contain; margin-bottom:40px;
+      border-radius:50%; background:#fff; padding:20px;
+      box-shadow:0 0 0 1px rgba(201,168,76,.35), 0 0 50px rgba(201,168,76,.1);
+    }
+    .hero-eyebrow {
+      font-size:.58rem; letter-spacing:.4em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:18px;
+    }
+    .hero-title {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(3.5rem,8vw,7rem); font-weight:300;
+      letter-spacing:.1em; line-height:1; color:var(--cream); margin-bottom:6px;
+    }
+    .hero-title span { color:var(--gold); font-style:italic; }
+    .hero-subtitle {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1rem,2.5vw,1.4rem); font-weight:300; font-style:italic;
+      color:var(--cream-muted); margin-bottom:30px;
+    }
+    .hero-divider {
+      width:80px; height:1px;
+      background:linear-gradient(to right, transparent, var(--gold), transparent);
+      margin:0 auto 26px;
+    }
+    .hero-desc {
+      max-width:520px; font-size:.72rem; letter-spacing:.12em;
+      line-height:2; color:var(--cream-muted);
+    }
+    .hero-scroll {
+      position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      color:var(--gold); font-size:.52rem; letter-spacing:.3em; text-transform:uppercase;
+    }
+    .hero-scroll::after {
+      content:''; width:1px; height:40px;
+      background:linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ── SHARED ── */
+    .section-wrap { padding:100px 48px; max-width:1200px; margin:0 auto; }
+    .section-wrap-full { padding:100px 48px; }
+    .section-inner { max-width:1200px; margin:0 auto; }
+
+    .section-label {
+      font-size:.52rem; letter-spacing:.4em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:14px;
+    }
+    .section-title {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,4vw,3rem); font-weight:300;
+      letter-spacing:.04em; color:var(--cream); margin-bottom:10px; line-height:1.1;
+    }
+    .section-title em { color:var(--gold); font-style:italic; }
+    .section-bar { width:48px; height:1px; background:var(--gold); margin-bottom:48px; }
+
+    .gold-divider {
+      width:100%; height:1px;
+      background:linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .bg-soft { background:var(--black-soft); }
+
+    /* ── SOMMAIRE ── */
+    .sommaire-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:1px; background:var(--border); border:1px solid var(--border);
+    }
+    .sommaire-item {
+      background:var(--black-soft); padding:32px 28px; transition:background .3s;
+    }
+    .sommaire-item:hover { background:var(--black-card); }
+    .sommaire-num {
+      font-family:'Cormorant Garamond',serif;
+      font-size:2.8rem; font-weight:300; color:var(--gold); opacity:.35;
+      line-height:1; margin-bottom:10px;
+    }
+    .sommaire-item h3 {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.05rem; font-weight:400; color:var(--cream);
+      letter-spacing:.02em; margin-bottom:6px;
+    }
+    .sommaire-item p { font-size:.62rem; letter-spacing:.08em; color:var(--cream-muted); line-height:1.8; }
+
+    /* ── PRESENTATION ── */
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+    .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px; align-items:start; }
+
+    .card {
+      background:var(--black-card); border:1px solid var(--border);
+      padding:44px 36px; position:relative;
+    }
+    .card::before {
+      content:''; position:absolute; top:0; left:0; width:44px; height:2px; background:var(--gold);
+    }
+    .card-label { font-size:.52rem; letter-spacing:.4em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+    .card h3 {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.7rem; font-weight:300; color:var(--cream); margin-bottom:22px;
+    }
+    .card p { font-size:.76rem; line-height:2; color:var(--cream-muted); margin-bottom:12px; }
+
+    .detail-row { display:flex; gap:16px; margin-bottom:12px; }
+    .detail-label {
+      font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--gold); white-space:nowrap; padding-top:2px; min-width:72px;
+    }
+    .detail-val { font-size:.76rem; line-height:1.7; color:var(--cream-muted); }
+
+    /* ── MENU ── */
+    .menu-cols { display:grid; grid-template-columns:1fr 1.3fr; gap:64px; align-items:start; }
+
+    .menu-category { margin-bottom:44px; }
+    .menu-category-title {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.4rem; font-weight:400; color:var(--gold);
+      letter-spacing:.06em; margin-bottom:4px;
+    }
+    .menu-price {
+      font-size:.58rem; letter-spacing:.25em; text-transform:uppercase;
+      color:var(--cream-muted); margin-bottom:18px;
+    }
+    .menu-item { border-bottom:1px solid var(--border); padding:16px 0; }
+    .menu-item:first-of-type { border-top:1px solid var(--border); }
+    .menu-item-name {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.1rem; font-weight:400; color:var(--cream); margin-bottom:4px;
+    }
+    .menu-item-desc {
+      font-size:.62rem; letter-spacing:.08em;
+      color:var(--cream-muted); line-height:1.9; text-transform:uppercase;
+    }
+
+    /* ── GALLERY ── */
+    .img-wrap { overflow:hidden; position:relative; }
+    .gallery-img {
+      width:100%; display:block; object-fit:cover;
+      filter:brightness(.88) contrast(1.05);
+      transition:filter .4s, transform .5s;
+    }
+    .gallery-img.portrait { aspect-ratio:3/4; }
+    .gallery-img.square { aspect-ratio:1; }
+    .gallery-img.landscape { aspect-ratio:4/3; }
+    .img-wrap:hover .gallery-img { filter:brightness(1) contrast(1.05); transform:scale(1.03); }
+    .img-caption {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:40px 16px 14px;
+      background:linear-gradient(to top, rgba(8,8,8,.85), transparent);
+      font-size:.56rem; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--cream-muted); opacity:0; transition:opacity .3s;
+    }
+    .img-wrap:hover .img-caption { opacity:1; }
+
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+    .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; }
+    .grid-5 { display:grid; grid-template-columns:1.5fr 1fr 1fr; grid-template-rows:auto auto; gap:4px; }
+    .grid-5 .span-col { grid-row:1/3; }
+
+    /* ── STEPS ── */
+    .steps { counter-reset:step; }
+    .step {
+      display:flex; gap:20px; align-items:flex-start;
+      padding:20px 0; border-bottom:1px solid var(--border);
+    }
+    .step:first-child { border-top:1px solid var(--border); }
+    .step-num {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.8rem; font-weight:300; color:var(--gold); opacity:.5;
+      line-height:1; flex-shrink:0; width:36px;
+    }
+    .step-text { font-size:.76rem; line-height:2; color:var(--cream-muted); padding-top:4px; }
+
+    /* ── POINTS CRITIQUES ── */
+    .critiques { list-style:none; margin-top:32px; }
+    .critique-item {
+      display:flex; gap:16px; align-items:flex-start;
+      padding:16px 0; border-bottom:1px solid var(--border);
+    }
+    .critique-item::before {
+      content:''; display:block; width:20px; height:1px;
+      background:var(--gold); margin-top:10px; flex-shrink:0;
+    }
+    .critique-strong { font-size:.72rem; color:var(--cream); font-weight:500; display:block; margin-bottom:2px; }
+    .critique-detail { font-size:.68rem; color:var(--cream-muted); line-height:1.8; }
+
+    /* ── NETTOYAGE ── */
+    .nettoyage-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:64px; align-items:start; }
+    .nettoyage-steps { list-style:none; }
+    .nettoyage-step {
+      display:flex; gap:18px; align-items:flex-start;
+      padding:14px 0; border-bottom:1px solid var(--border);
+    }
+    .nettoyage-step:first-child { border-top:1px solid var(--border); }
+    .nettoyage-num {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.5rem; font-weight:300; color:var(--gold); opacity:.45;
+      line-height:1; flex-shrink:0; width:28px;
+    }
+    .nettoyage-text { font-size:.74rem; line-height:1.9; color:var(--cream-muted); padding-top:2px; }
+
+    /* ── QUOTE ── */
+    .quote-block {
+      text-align:center; padding:80px 48px;
+      background:var(--black-card);
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    }
+    .quote-block blockquote {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1.3rem,3vw,2rem); font-style:italic; font-weight:300;
+      color:var(--cream); max-width:680px; margin:0 auto; line-height:1.7;
+    }
+    .quote-block blockquote span { color:var(--gold); }
+    .quote-source {
+      margin-top:22px; font-size:.56rem; letter-spacing:.3em;
+      text-transform:uppercase; color:var(--gold);
+    }
+
+    /* ── DECHETS ── */
+    .dechet-item {
+      display:grid; grid-template-columns:1fr 1fr; gap:40px;
+      align-items:center; padding:40px 0; border-bottom:1px solid var(--border);
+    }
+    .dechet-item:first-child { border-top:1px solid var(--border); }
+    .dechet-item.reverse { direction:rtl; }
+    .dechet-item.reverse > * { direction:ltr; }
+    .dechet-label {
+      font-size:.52rem; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:10px;
+    }
+    .dechet-title {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.5rem; font-weight:300; color:var(--cream); margin-bottom:12px;
+    }
+    .dechet-text { font-size:.74rem; line-height:2; color:var(--cream-muted); }
+
+    /* ── SIROP STEPS ── */
+    .sirop-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-bottom:4px; }
+    .sirop-step-wrap { position:relative; }
+    .sirop-step-badge {
+      position:absolute; top:12px; left:12px; z-index:2;
+      background:rgba(8,8,8,.85); border:1px solid var(--border);
+      padding:5px 12px; font-size:.52rem; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--gold);
+    }
+
+    /* ── ANNEXES ── */
+    .annexe-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+    .annexe-wrap { overflow:hidden; position:relative; }
+    .annexe-wrap img {
+      width:100%; aspect-ratio:4/3; object-fit:cover; display:block;
+      filter:brightness(.85) contrast(1.05) grayscale(.1);
+      transition:filter .4s, transform .4s;
+    }
+    .annexe-wrap:hover img { filter:brightness(1) contrast(1.05) grayscale(0); transform:scale(1.03); }
+    .annexe-tag {
+      position:absolute; top:14px; left:14px;
+      background:rgba(8,8,8,.8); border:1px solid var(--border);
+      padding:5px 12px; font-size:.52rem; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--black); border-top:1px solid var(--border);
+      padding:60px 48px; text-align:center;
+    }
+    .footer-logo {
+      width:64px; height:64px; object-fit:contain;
+      border-radius:50%; background:#fff; padding:9px;
+      opacity:.7; margin-bottom:22px;
+    }
+    .footer-name {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.1rem; letter-spacing:.3em; color:var(--gold);
+      text-transform:uppercase; margin-bottom:8px;
+    }
+    .footer-info { font-size:.58rem; letter-spacing:.18em; color:var(--cream-muted); text-transform:uppercase; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      nav { padding:16px 20px; }
+      .nav-links { display:none; }
+      .section-wrap, .section-wrap-full { padding:60px 20px; }
+      .section-inner { padding:0; }
+      .two-col, .three-col, .menu-cols, .nettoyage-grid { grid-template-columns:1fr; gap:32px; }
+      .grid-4, .sirop-steps { grid-template-columns:1fr 1fr; }
+      .grid-5 { grid-template-columns:1fr 1fr; }
+      .grid-5 .span-col { grid-row:auto; }
+      .annexe-grid { grid-template-columns:1fr; }
+      .dechet-item, .dechet-item.reverse { direction:ltr; grid-template-columns:1fr; }
+      footer { padding:40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ NAV ════════════════ -->
+<nav>
+  <div class="nav-logo">Lisa Barbelin</div>
+  <ul class="nav-links">
+    <li><a href="#presentation">Présentation</a></li>
+    <li><a href="#carte">La Carte</a></li>
+    <li><a href="#creation">Création</a></li>
+    <li><a href="#approvisionnements">Approvisionnements</a></li>
+    <li><a href="#hygiene">Hygiène</a></li>
+    <li><a href="#ressources">Ressources</a></li>
+    <li><a href="#annexes">Annexes</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════ HERO ════════════════ -->
+<div class="hero">
+  <img src="images/logo.jpg" alt="Logo La Toq'" class="hero-logo" />
+  <p class="hero-eyebrow">Certification de Spécialisation · Session 2025 / 2026</p>
+  <h1 class="hero-title">BARBELIN<br><span>Lisa</span></h1>
+  <p class="hero-subtitle">Desserts de Restaurant</p>
+  <div class="hero-divider"></div>
+  <p class="hero-desc">Je m'appelle BARBELIN LISA, j'effectue une certification de spécialisation, desserts de restaurant pendant la session 2025/2026.</p>
+  <div class="hero-scroll">Découvrir</div>
+</div>
+
+<!-- ════════════════ SOMMAIRE ════════════════ -->
+<div class="bg-soft">
+  <div class="section-wrap">
+    <p class="section-label">Page 2</p>
+    <h2 class="section-title">Sommaire</h2>
+    <div class="section-bar"></div>
+    <div class="sommaire-grid">
+      <div class="sommaire-item">
+        <div class="sommaire-num">01</div>
+        <h3>Page de garde</h3>
+        <p>Présentation du dossier</p>
+      </div>
+      <div class="sommaire-item">
+        <div class="sommaire-num">02</div>
+        <h3>Sommaire</h3>
+        <p>Index du dossier</p>
+      </div>
+      <div class="sommaire-item">
+        <div class="sommaire-num">03</div>
+        <h3>Présentation</h3>
+        <p>L'entreprise et ma présentation</p>
+      </div>
+      <div class="sommaire-item">
+        <div class="sommaire-num">04</div>
+        <h3>S'approprier la carte</h3>
+        <p>Les desserts du menu</p>
+      </div>
+      <div class="sommaire-item">
+        <div class="sommaire-num">05</div>
+        <h3>Création d'un dessert</h3>
+        <p>Du concept au dressage</p>
+      </div>
+      <div class="sommaire-item">
+        <div class="sommaire-num">06</div>
+        <h3>Approvisionnements</h3>
+        <p>Bons de livraison &amp; stocks</p>
+      </div>
+      <div class="sommaire-item">
+        <div class="sommaire-num">07</div>
+        <h3>Hygiène &amp; Sécurité</h3>
+        <p>Protocoles et produits</p>
+      </div>
+      <div class="sommaire-item">
+        <div class="sommaire-num">08</div>
+        <h3>Gestion durable</h3>
+        <p>Ressources et tri</p>
+      </div>
+      <div class="sommaire-item">
+        <div class="sommaire-num">09+</div>
+        <h3>Annexes</h3>
+        <p>Documents complémentaires</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- ════════════════ PRESENTATION ════════════════ -->
+<section id="presentation">
+  <div class="section-wrap">
+    <p class="section-label">Page 3</p>
+    <h2 class="section-title">Présentation de <em>l'entreprise</em><br>et de moi-même</h2>
+    <div class="section-bar"></div>
+    <div class="two-col">
+
+      <div class="card">
+        <p class="card-label">L'entreprise</p>
+        <h3>Restaurant La Toq'</h3>
+        <div class="detail-row">
+          <span class="detail-label">Lieu</span>
+          <span class="detail-val">Au centre-ville de Nancy</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Style</span>
+          <span class="detail-val">Restaurant gastronomique</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Chef</span>
+          <span class="detail-val">Bertrand HECKMANN</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Fondé</span>
+          <span class="detail-val">Racheté en 1997 par le chef Bertrand HECKMANN</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Cuisine</span>
+          <span class="detail-val">Carte de produits variés, de saison et fait maison</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Capacité</span>
+          <span class="detail-val">~35 couverts — deux salles : rez-de-chaussée et étage (utilisé pour les groupes)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="card-label">Mon parcours</p>
+        <h3>Lisa Barbelin</h3>
+        <p>Passionnée de pâtisserie, j'ai effectué ma seconde au lycée Henri Poincaré, puis j'ai passé mon baccalauréat Science Technologique Hôtellerie et Restauration au lycée Stanislas de 2022 à 2024.</p>
+        <p>J'ai également travaillé à la maison carrée à Méréville pour ma première année de BTS Management Hôtellerie et Restauration de 2024/2025.</p>
+        <p>Je travaille maintenant au restaurant La Toq' depuis septembre 2025, en pâtisserie.</p>
+        <div class="detail-row" style="margin-top:16px;">
+          <span class="detail-label">Projet</span>
+          <span class="detail-val">Réaliser ma certification de spécialisation dessert de restaurant, puis devenir cheffe pâtissière dans mon restaurant.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ════════════════ CARTE ════════════════ -->
+<div class="bg-soft">
+  <div class="section-wrap-full">
+    <div class="section-inner">
+      <p class="section-label">Page 4</p>
+      <h2 class="section-title">S'approprier <em>les desserts</em> de la carte</h2>
+      <div class="section-bar"></div>
+      <p style="font-size:.74rem;color:var(--cream-muted);line-height:2;max-width:650px;margin-bottom:56px;">
+        Notre carte se compose de trois menus et d'une carte à la carte, chacun proposant des desserts travaillés à partir de produits de saison, faits maison.
+      </p>
+
+      <div class="menu-cols">
+        <div>
+
+          <div class="menu-category">
+            <div class="menu-category-title">Menu Saveur</div>
+            <div class="menu-price">53 € — Deux choix</div>
+            <div class="menu-item">
+              <div class="menu-item-name">Pavlova aux fruits exotiques</div>
+              <div class="menu-item-desc">Ganache montée au chocolat blanc · Glace verveine</div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">Croustillant Chocolat–Noisette</div>
+              <div class="menu-item-desc">Tartelette en feuille de brick cacao · Noisettes &amp; riz soufflé caramélisés · Ganache montée chocolat au lait · Siphon chocolat noir · Crumble cacao</div>
+            </div>
+          </div>
+
+          <div class="menu-category">
+            <div class="menu-category-title">Menu Plaisir</div>
+            <div class="menu-price">38 € — Deux choix</div>
+            <div class="menu-item">
+              <div class="menu-item-name">Paris-Brest</div>
+              <div class="menu-item-desc">Mousseline praliné aux noisettes caramélisées · Cœur praliné</div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">Parfait glacé aux pommes</div>
+              <div class="menu-item-desc">Mousse au miel · Cœur de compote de pommes · Pommes pochées au cidre · Crumble</div>
+            </div>
+          </div>
+
+          <div class="menu-category">
+            <div class="menu-category-title">Menu Découverte</div>
+            <div class="menu-price">64 € — Choix unique</div>
+            <div class="menu-item">
+              <div class="menu-item-name">Mille-Feuille</div>
+              <div class="menu-item-desc">Pâte feuilletée · Mousseline vanille · Glace vanille</div>
+            </div>
+          </div>
+
+          <div class="menu-category">
+            <div class="menu-category-title">Menu Retour du Marché</div>
+            <div class="menu-price">28 €</div>
+            <div class="menu-item">
+              <div class="menu-item-name">Tarte fine aux pommes caramélisées</div>
+              <div class="menu-item-desc">Crumble · Caramel · Glace vanille · Pointe de cannelle</div>
+            </div>
+          </div>
+
+          <div class="menu-category">
+            <div class="menu-category-title">À la carte</div>
+            <div class="menu-price">15 € chaque dessert</div>
+            <div class="menu-item">
+              <div class="menu-item-name">Chocolat–Café</div>
+              <div class="menu-item-desc">Entremets mousse café · Meringue cacao · Mousse mascarpone · Sorbet café</div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">Choco-Framboise</div>
+              <div class="menu-item-desc">Cube de ganache chocolat au lait avec insert framboise · Infusion menthe–framboise</div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">Soufflé Poire–Tonka</div>
+              <div class="menu-item-desc">Soufflé accompagné d'une brunoise de poire · Glace tonka</div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">Tarte soufflée Poire–Tonka</div>
+              <div class="menu-item-desc">Servie avec une glace tonka</div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-item-name">Mille-Feuille</div>
+              <div class="menu-item-desc">Pâte feuilletée · Mousseline vanille · Glace vanille</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Photos desserts -->
+        <div>
+          <div class="grid-2" style="gap:4px;">
+            <div class="img-wrap">
+              <img src="images/unknown-25.jpg" alt="Choco-Framboise" class="gallery-img portrait" />
+              <div class="img-caption">Choco-Framboise</div>
+            </div>
+            <div class="img-wrap">
+              <img src="images/unknown-33.jpg" alt="Série de desserts" class="gallery-img portrait" />
+              <div class="img-caption">Service en série</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- ════════════════ CREATION ════════════════ -->
+<section id="creation">
+  <div class="section-wrap">
+    <p class="section-label">Page 5</p>
+    <h2 class="section-title">Participer à la <em>création</em> d'un dessert</h2>
+    <div class="section-bar"></div>
+
+    <div class="two-col" style="margin-bottom:56px;">
+      <div>
+        <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Création — Le Chocolat Noisette</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text">Prendre un fond chocolat croustillant, ajouter du praliné noisette et des noisettes caramélisées.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text">Pocher de la ganache montée chocolat au lait.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text">Disposer sur l'assiette et ajouter du crumble chocolat et du crumble au riz soufflé.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-text">Ajouter le siphon chocolat au lait et disposer du riz soufflé caramélisé.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="background:var(--black-soft);">
+          <p class="card-label">Note de création</p>
+          <p>Pour nos premiers « choco noisette », nous avons hésité avec les assiettes bleues, puis nous sommes passés à des assiettes plus sobres et avons rajouté du crumble au riz soufflé pour une touche de couleur.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photos choco noisette -->
+    <div class="grid-2" style="margin-bottom:4px;">
+      <div class="img-wrap">
+        <img src="images/unknown-33.jpg" alt="Premiers choco-noisette sur assiettes bleues" class="gallery-img landscape" />
+        <div class="img-caption">Première version — assiettes bleues</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/unknown-27.jpg" alt="Version finale choco-noisette" class="gallery-img landscape" />
+        <div class="img-caption">Version finale — assiettes sobres + crumble riz soufflé</div>
+      </div>
+    </div>
+
+    <!-- Paris-Brest & Croustillant Noisette -->
+    <div class="grid-2" style="margin-top:4px;margin-bottom:4px;">
+      <div class="img-wrap">
+        <img src="images/unknown-29.jpg" alt="Paris-Brest" class="gallery-img landscape" />
+        <div class="img-caption">Paris-Brest</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/unknown-31.jpg" alt="Croustillant Noisette" class="gallery-img landscape" />
+        <div class="img-caption">Croustillant Noisette</div>
+      </div>
+    </div>
+
+    <!-- Recette ganache montée -->
+    <div style="margin-top:72px;">
+      <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Recette — Ganache montée chocolat blanc</p>
+
+      <div class="two-col" style="align-items:start;">
+        <div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">Peser le sucre inverti et le glucose avec la crème liquide.</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">Faire bouillir le mélange.</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">Peser le chocolat blanc.</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text">Ajouter les 2/3 de la crème chaude sur le chocolat et mélanger.</div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-text">Ajouter le reste de la crème.</div></div>
+            <div class="step"><div class="step-num">6</div><div class="step-text">Mixer sans incorporer d'air.</div></div>
+            <div class="step"><div class="step-num">7</div><div class="step-text">Ajouter la crème froide et mixer à nouveau.</div></div>
+            <div class="step"><div class="step-num">8</div><div class="step-text">Filmer au contact et réserver au frais.</div></div>
+            <div class="step"><div class="step-num">9</div><div class="step-text">Monter la ganache une fois bien refroidie.</div></div>
+            <div class="step"><div class="step-num">10</div><div class="step-text">Pocher.</div></div>
+          </div>
+        </div>
+
+        <!-- Photos process ganache -->
+        <div class="grid-2" style="gap:4px;">
+          <div class="img-wrap"><img src="images/unknown-41.jpg" alt="Ganache lisse" class="gallery-img square" /><div class="img-caption">Ganache lisse</div></div>
+          <div class="img-wrap"><img src="images/unknown-45.jpg" alt="Mélange" class="gallery-img square" /><div class="img-caption">Fonte &amp; mélange</div></div>
+          <div class="img-wrap"><img src="images/unknown-43.jpg" alt="Pistoles chocolat blanc" class="gallery-img square" /><div class="img-caption">Pistoles chocolat blanc</div></div>
+          <div class="img-wrap"><img src="images/unknown-47.jpg" alt="Ajout de la crème" class="gallery-img square" /><div class="img-caption">Incorporation crème</div></div>
+          <div class="img-wrap"><img src="images/unknown-51.jpg" alt="Mixage plongeant" class="gallery-img square" /><div class="img-caption">Mixage plongeant</div></div>
+          <div class="img-wrap"><img src="images/unknown-53.jpg" alt="Émulsion parfaite" class="gallery-img square" /><div class="img-caption">Émulsion parfaite</div></div>
+          <div class="img-wrap"><img src="images/unknown-55.jpg" alt="Filmage au contact" class="gallery-img square" /><div class="img-caption">Filmage au contact</div></div>
+          <div class="img-wrap"><img src="images/unknown-59.jpg" alt="Mise en poche" class="gallery-img square" /><div class="img-caption">Mise en poche</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Points critiques -->
+    <div style="margin-top:72px;">
+      <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Points critiques lors de la confection</p>
+      <ul class="critiques">
+        <li class="critique-item"><div><span class="critique-strong">Pesées précises</span><span class="critique-detail">Respecter exactement les quantités de chocolat, crème, glucose et sucre inverti pour garantir la bonne texture.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Qualité du chocolat</span><span class="critique-detail">Utiliser un chocolat de couverture de bonne qualité pour une bonne émulsion et une bonne tenue.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Température de la crème chaude</span><span class="critique-detail">La crème doit être bien chaude pour faire fondre correctement le chocolat.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Ajout progressif de la crème</span><span class="critique-detail">Verser en 2 fois sur le chocolat pour créer une émulsion stable.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Mélange correct</span><span class="critique-detail">Mélanger du centre vers l'extérieur pour obtenir une ganache lisse et brillante.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Éviter l'incorporation d'air</span><span class="critique-detail">Lors du mixage, garder le mixeur plongeant immergé pour éviter les bulles d'air.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Ajout de la crème froide</span><span class="critique-detail">L'ajouter une fois l'émulsion bien réalisée pour assurer une bonne texture au montage.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Filmer au contact</span><span class="critique-detail">Indispensable pour éviter la formation d'une croûte en surface.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Temps de repos au froid</span><span class="critique-detail">Laisser minimum 4 heures (idéalement une nuit) pour que la matière grasse cristallise correctement.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Température de montage</span><span class="critique-detail">La ganache doit être bien froide (environ 4 °C) avant d'être montée.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Montage maîtrisé</span><span class="critique-detail">Ne pas trop fouetter pour éviter que la ganache tranche ou devienne granuleuse.</span></div></li>
+        <li class="critique-item"><div><span class="critique-strong">Utilisation rapide</span><span class="critique-detail">Une fois montée, la ganache doit être pochée rapidement pour garder sa tenue.</span></div></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ════════════════ APPROVISIONNEMENTS ════════════════ -->
+<div class="bg-soft" id="approvisionnements">
+  <div class="section-wrap">
+    <p class="section-label">Page 6</p>
+    <h2 class="section-title">Participer aux <em>approvisionnements</em></h2>
+    <div class="section-bar"></div>
+    <div class="two-col" style="align-items:center;">
+      <div>
+        <div class="card" style="background:var(--black-card);">
+          <p class="card-label">Documents</p>
+          <h3>Bon de livraison</h3>
+          <div class="detail-row">
+            <span class="detail-label">Fournisseur</span>
+            <span class="detail-val">Valrhona</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Date</span>
+            <span class="detail-val">10 mars 2026</span>
+          </div>
+          <div class="detail-row" style="margin-top:16px;">
+            <span class="detail-label">Aussi</span>
+            <span class="detail-val">Fiche de stock du restaurant La Toq' · Fiche technique dessert Retour du Marché</span>
+          </div>
+        </div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/unknown-35.jpg" alt="Bon de livraison Valrhona" class="gallery-img landscape" style="filter:brightness(.82) contrast(1.1);" />
+        <div class="img-caption">Bon de livraison Valrhona — 10/03/26</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- ════════════════ HYGIENE ════════════════ -->
+<section id="hygiene">
+  <div class="section-wrap">
+    <p class="section-label">Page 6 — suite</p>
+    <h2 class="section-title">Appliquer les règles <em>d'hygiène</em><br>et de sécurité alimentaire</h2>
+    <div class="section-bar"></div>
+
+    <div class="nettoyage-grid">
+      <div>
+        <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Protocole de nettoyage du poste de pâtisserie</p>
+        <ol class="nettoyage-steps">
+          <li class="nettoyage-step"><div class="nettoyage-num">1</div><div class="nettoyage-text">Débarrasser le poste.</div></li>
+          <li class="nettoyage-step"><div class="nettoyage-num">2</div><div class="nettoyage-text">Débrancher la plaque de cuisson.</div></li>
+          <li class="nettoyage-step"><div class="nettoyage-num">3</div><div class="nettoyage-text">Retirer les plus gros résidus.</div></li>
+          <li class="nettoyage-step"><div class="nettoyage-num">4</div><div class="nettoyage-text">Utiliser un détergent / désinfectant.</div></li>
+          <li class="nettoyage-step"><div class="nettoyage-num">5</div><div class="nettoyage-text">Frotter à l'aide d'une lavette.</div></li>
+          <li class="nettoyage-step"><div class="nettoyage-num">6</div><div class="nettoyage-text">Laisser agir.</div></li>
+          <li class="nettoyage-step"><div class="nettoyage-num">7</div><div class="nettoyage-text">Rincer à l'eau claire.</div></li>
+          <li class="nettoyage-step"><div class="nettoyage-num">8</div><div class="nettoyage-text">Sécher le poste et les portes des frigos ainsi que les étagères avec un papier à usage unique.</div></li>
+          <li class="nettoyage-step"><div class="nettoyage-num">9</div><div class="nettoyage-text">Vérifier la propreté.</div></li>
+        </ol>
+      </div>
+
+      <div>
+        <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Produit de nettoyage</p>
+        <div class="grid-2" style="gap:4px;">
+          <div class="img-wrap">
+            <img src="images/unknown-37.jpg" alt="Manulav 20" class="gallery-img portrait" />
+            <div class="img-caption">Manulav 20 — Désinfectant</div>
+          </div>
+          <div class="img-wrap">
+            <img src="images/unknown-39.jpg" alt="Manulav 20 front" class="gallery-img portrait" />
+            <div class="img-caption">Manulav 20 — pH 7.5 · 5L</div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:4px;background:var(--black-soft);">
+          <p class="card-label">Manulav 20</p>
+          <p>Liquide concentré pour vaisselle manuelle, parfumé au pamplemousse. Sélection cuisine — fabriqué en France, pH 7,5.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ════════════════ RESSOURCES DURABLES ════════════════ -->
+<div class="bg-soft" id="ressources">
+  <div class="section-wrap">
+    <p class="section-label">Page 7</p>
+    <h2 class="section-title">Mettre en œuvre la <em>gestion durable</em><br>des ressources</h2>
+    <div class="section-bar"></div>
+
+    <p style="font-size:.74rem;color:var(--cream-muted);line-height:2;max-width:600px;margin-bottom:48px;">
+      La gestion des déchets s'effectue avec trois poubelles différentes, ainsi que le recyclage des épluchures d'agrumes pour la réalisation d'un baba aux agrumes.
+    </p>
+
+    <!-- Tri sélectif -->
+    <div style="margin-bottom:64px;">
+      <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Tri sélectif — 3 poubelles</p>
+
+      <div class="dechet-item">
+        <div>
+          <div class="dechet-label">Poubelle 1</div>
+          <div class="dechet-title">Cartons &amp; consignes</div>
+          <div class="dechet-text">La poubelle des cartons et consignes des bouteilles en verres.</div>
+        </div>
+        <div class="img-wrap">
+          <img src="images/unknown-61.jpg" alt="Zone de stockage cartons" class="gallery-img landscape" style="filter:brightness(.75) contrast(1.1);" />
+          <div class="img-caption">Zone cartons &amp; consignes</div>
+        </div>
+      </div>
+
+      <div class="dechet-item reverse">
+        <div>
+          <div class="dechet-label">Poubelle 2</div>
+          <div class="dechet-title">Verre uniquement</div>
+          <div class="dechet-text">La poubelle du verre — collecte spécifique pour le recyclage du verre.</div>
+        </div>
+        <div class="img-wrap">
+          <img src="images/unknown-63.jpg" alt="Poubelle verre uniquement" class="gallery-img landscape" />
+          <div class="img-caption">Verre uniquement</div>
+        </div>
+      </div>
+
+      <div class="dechet-item">
+        <div>
+          <div class="dechet-label">Poubelle 3</div>
+          <div class="dechet-title">Collecteur à pédale 100 L</div>
+          <div class="dechet-text">Collecteur à pédale avec couvercle — pour les déchets alimentaires et ordures ménagères.</div>
+        </div>
+        <div class="img-wrap">
+          <img src="https://gilac-hygiene-medical.com/2176-large_default/collecteur-a-pedale-100-l-avec-couvercle.jpg" alt="Collecteur à pédale 100 L" class="gallery-img landscape" style="filter:brightness(.88) contrast(1.05);" />
+          <div class="img-caption">Collecteur à pédale 100 L</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Recyclage épluchures -->
+    <div>
+      <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Recyclage — Épluchures d'orange pour le Baba aux agrumes</p>
+
+      <div class="two-col" style="align-items:start;margin-bottom:32px;">
+        <div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">Faire un sirop (eau + sucre).</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">Faire bouillir.</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">Peler les oranges.</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text">Verser le sirop sur les épluchures et laisser infuser.</div></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--black-card);">
+          <p class="card-label">Dessert du Retour du Marché</p>
+          <h3>Baba aux agrumes</h3>
+          <p>Les épluchures d'orange, habituellement destinées aux déchets, sont recyclées pour confectionner le sirop d'imbibage du baba aux agrumes — dessert du menu Retour du Marché.</p>
+        </div>
+      </div>
+
+      <div class="sirop-steps">
+        <div class="sirop-step-wrap img-wrap">
+          <div class="sirop-step-badge">Étape 1–2</div>
+          <img src="images/unknown-73.jpg" alt="Préparation sirop" class="gallery-img square" />
+          <div class="img-caption">Sirop eau + sucre</div>
+        </div>
+        <div class="sirop-step-wrap img-wrap">
+          <div class="sirop-step-badge">Étape 3</div>
+          <img src="images/unknown-71.jpg" alt="Peler les oranges" class="gallery-img square" />
+          <div class="img-caption">Épluchage orange sanguine</div>
+        </div>
+        <div class="sirop-step-wrap img-wrap">
+          <div class="sirop-step-badge">Étape 4</div>
+          <img src="images/unknown-65.jpg" alt="Infusion épluchures" class="gallery-img square" />
+          <div class="img-caption">Infusion épluchures dans le sirop</div>
+        </div>
+        <div class="sirop-step-wrap img-wrap">
+          <div class="sirop-step-badge">Résultat</div>
+          <img src="images/unknown-67.jpg" alt="Baba aux agrumes dressé" class="gallery-img square" />
+          <div class="img-caption">Baba aux agrumes — dressage final</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- ════════════════ ANNEXES ════════════════ -->
+<section id="annexes">
+  <div class="section-wrap">
+    <p class="section-label">Page 8 et suivantes</p>
+    <h2 class="section-title">Annexes</h2>
+    <div class="section-bar"></div>
+
+    <!-- Crème caramel non cuite -->
+    <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Retour du Marché</p>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--cream);margin-bottom:32px;">Crème Caramel <em style="color:var(--gold);font-style:italic;">Non Cuite</em></h3>
+
+    <!-- Vidéo dressage -->
+    <div style="position:relative;overflow:hidden;margin-bottom:64px;">
+      <div style="position:absolute;top:14px;left:14px;z-index:2;background:rgba(8,8,8,.8);border:1px solid var(--border);padding:5px 12px;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);">Vidéo — Dressage</div>
+      <video controls style="width:100%;display:block;background:#000;max-height:600px;">
+        <source src="annexe.MOV" type="video/quicktime" />
+        <source src="annexe.MOV" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Placeholder fiche technique -->
+    <div class="gold-divider" style="margin-bottom:48px;"></div>
+    <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Fiche technique</p>
+    <div style="border:1px dashed rgba(201,168,76,.3);padding:60px 40px;text-align:center;">
+      <p style="font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-muted);opacity:.5;">— Fiche technique à venir —</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer>
+  <img src="images/logo.jpg" alt="Logo La Toq'" class="footer-logo" />
+  <p class="footer-name">Barbelin Lisa</p>
+  <p class="footer-info">Certification de Spécialisation — Desserts de Restaurant · Session 2025 / 2026</p>
+  <p class="footer-info" style="margin-top:6px;opacity:.45;">Restaurant La Toq' · Nancy · Chef Bertrand HECKMANN</p>
+</footer>
+
+</body>
+</html>
