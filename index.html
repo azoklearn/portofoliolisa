@@ -21,7 +21,12 @@
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
+
+    html {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100%;
+    }
 
     body {
       background: var(--black);
@@ -29,6 +34,15 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
+    }
+
+    /* Chaque page = plein écran */
+    .hero,
+    .snap-section,
+    section,
+    footer {
+      scroll-snap-align: start;
+      min-height: 100vh;
     }
 
     ::-webkit-scrollbar { width:4px; }
@@ -344,6 +358,52 @@
     }
     .footer-info { font-size:.58rem; letter-spacing:.18em; color:var(--cream-muted); text-transform:uppercase; }
 
+    /* ── LOADER ── */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--black);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 32px;
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+    #loader.hide { opacity: 0; visibility: hidden; }
+
+    .loader-logo {
+      width: 80px; height: 80px; object-fit: contain;
+      border-radius: 50%; background: #fff; padding: 12px;
+      box-shadow: 0 0 0 1px rgba(201,168,76,.35), 0 0 40px rgba(201,168,76,.12);
+      animation: loader-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes loader-pulse {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(201,168,76,.35), 0 0 40px rgba(201,168,76,.12); }
+      50%       { box-shadow: 0 0 0 1px rgba(201,168,76,.7),  0 0 60px rgba(201,168,76,.28); }
+    }
+
+    .loader-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; letter-spacing: .35em;
+      text-transform: uppercase; color: var(--cream);
+    }
+
+    .loader-bar-wrap {
+      width: 160px; height: 1px;
+      background: rgba(201,168,76,.15); position: relative; overflow: hidden;
+    }
+    .loader-bar {
+      position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      animation: loader-bar 1.4s ease-in-out infinite;
+    }
+    @keyframes loader-bar {
+      0%   { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .loader-label {
+      font-size: .52rem; letter-spacing: .4em;
+      text-transform: uppercase; color: var(--gold); opacity: .7;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width:900px) {
       nav { padding:16px 20px; }
@@ -361,6 +421,22 @@
   </style>
 </head>
 <body>
+
+<!-- ════════════════ LOADER ════════════════ -->
+<div id="loader">
+  <img src="images/logo.jpg" alt="Logo La Toq'" class="loader-logo" />
+  <div class="loader-name">Lisa Barbelin</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-label">Chargement</div>
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hide');
+    }, 800);
+  });
+</script>
 
 <!-- ════════════════ NAV ════════════════ -->
 <nav>
@@ -388,7 +464,7 @@
 </div>
 
 <!-- ════════════════ SOMMAIRE ════════════════ -->
-<div class="bg-soft">
+<div class="bg-soft snap-section">
   <div class="section-wrap">
     <p class="section-label">Page 2</p>
     <h2 class="section-title">Sommaire</h2>
@@ -501,14 +577,14 @@
 <div class="gold-divider"></div>
 
 <!-- ════════════════ CARTE ════════════════ -->
-<div class="bg-soft">
+<div class="bg-soft snap-section">
   <div class="section-wrap-full">
     <div class="section-inner">
       <p class="section-label">Page 4</p>
       <h2 class="section-title">S'approprier <em>les desserts</em> de la carte</h2>
       <div class="section-bar"></div>
       <p style="font-size:.74rem;color:var(--cream-muted);line-height:2;max-width:650px;margin-bottom:56px;">
-        Notre carte se compose de trois menus et d'une carte à la carte, chacun proposant des desserts travaillés à partir de produits de saison, faits maison.
+        Notre carte se compose de trois menus et chacun proposant des desserts travaillés à partir de produits de saison, faits maison.
       </p>
 
       <div class="menu-cols">
@@ -619,16 +695,16 @@
     <!-- 3 photos avant la note -->
     <div class="grid-3" style="margin-bottom:4px;">
       <div class="img-wrap">
-        <img src="images/unknown-27.jpg" alt="Version finale choco-noisette" class="gallery-img landscape" />
-        <div class="img-caption">Version finale — assiettes sobres + crumble riz soufflé</div>
+        <img src="images/unknown-27.jpg" alt="" class="gallery-img landscape" />
+        <div class="img-caption"></div>
       </div>
       <div class="img-wrap">
-        <img src="images/unknown-29.jpg" alt="Paris-Brest" class="gallery-img landscape" />
-        <div class="img-caption">Paris-Brest</div>
+        <img src="images/unknown-29.jpg" alt="" class="gallery-img landscape" />
+        <div class="img-caption"></div>
       </div>
       <div class="img-wrap">
-        <img src="images/unknown-31.jpg" alt="Croustillant Noisette" class="gallery-img landscape" />
-        <div class="img-caption">Croustillant Noisette</div>
+        <img src="images/unknown-31.jpg" alt="" class="gallery-img landscape" />
+        <div class="img-caption"></div>
       </div>
     </div>
 
@@ -703,33 +779,36 @@
 <div class="gold-divider"></div>
 
 <!-- ════════════════ APPROVISIONNEMENTS ════════════════ -->
-<div class="bg-soft" id="approvisionnements">
+<div class="bg-soft snap-section" id="approvisionnements">
   <div class="section-wrap">
     <p class="section-label">Page 6</p>
     <h2 class="section-title">Participer aux <em>approvisionnements</em></h2>
     <div class="section-bar"></div>
-    <div class="two-col" style="align-items:center;">
-      <div>
-        <div class="card" style="background:var(--black-card);">
-          <p class="card-label">Documents</p>
-          <h3>Bon de livraison</h3>
-          <div class="detail-row">
-            <span class="detail-label">Fournisseur</span>
-            <span class="detail-val">Valrhona</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Date</span>
-            <span class="detail-val">10 mars 2026</span>
-          </div>
-          <div class="detail-row" style="margin-top:16px;">
-            <span class="detail-label">Aussi</span>
-            <span class="detail-val">Fiche de stock du restaurant La Toq' · Fiche technique dessert Retour du Marché</span>
-          </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;align-items:stretch;">
+      <div class="img-wrap">
+        <img src="images/unknown-35.jpg" alt="Bon de livraison Valrhona" class="gallery-img" style="width:100%;height:100%;object-fit:cover;filter:brightness(.82) contrast(1.1);" />
+        <div class="img-caption">Bon de livraison Valrhona — 10/03/26</div>
+      </div>
+      <div class="card" style="background:var(--black-card);">
+        <p class="card-label">Documents</p>
+        <h3>Bon de livraison</h3>
+        <div class="detail-row">
+          <span class="detail-label">Fournisseur</span>
+          <span class="detail-val">Valrhona</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Date</span>
+          <span class="detail-val">10 mars 2026</span>
+        </div>
+        <div class="detail-row" style="margin-top:16px;">
+          <span class="detail-label">Aussi</span>
+          <span class="detail-val">Fiche de stock du restaurant La Toq'</span>
         </div>
       </div>
-      <div class="img-wrap">
-        <img src="images/unknown-35.jpg" alt="Bon de livraison Valrhona" class="gallery-img landscape" style="filter:brightness(.82) contrast(1.1);" />
-        <div class="img-caption">Bon de livraison Valrhona — 10/03/26</div>
+      <div class="card" style="background:var(--black-soft);">
+        <p class="card-label">Analyse</p>
+        <p>Ce document présente un bon de livraison du fournisseur Valrhona, que j'ai été amenée à contrôler dans le cadre du suivi des approvisionnements.</p>
+        <p>Il m'a permis de vérifier la conformité des produits livrés (quantités, références, poids) avec la commande initiale, ainsi que d'assurer la bonne mise à jour des stocks du restaurant.</p>
       </div>
     </div>
   </div>
@@ -784,7 +863,7 @@
 <div class="gold-divider"></div>
 
 <!-- ════════════════ RESSOURCES DURABLES ════════════════ -->
-<div class="bg-soft" id="ressources">
+<div class="bg-soft snap-section" id="ressources">
   <div class="section-wrap">
     <p class="section-label">Page 7</p>
     <h2 class="section-title">Mettre en œuvre la <em>gestion durable</em><br>des ressources</h2>
@@ -905,15 +984,356 @@
       </video>
     </div>
 
-    <!-- Placeholder fiche technique -->
+    <!-- Fiche technique -->
     <div class="gold-divider" style="margin-bottom:48px;"></div>
     <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Fiche technique</p>
-    <div style="border:1px dashed rgba(201,168,76,.3);padding:60px 40px;text-align:center;">
-      <p style="font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-muted);opacity:.5;">— Fiche technique à venir —</p>
+
+    <!-- En-tête -->
+    <div class="card" style="margin-bottom:4px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;">
+        <div>
+          <p class="card-label">Descriptif</p>
+          <p style="font-size:.82rem;color:var(--cream);font-style:italic;line-height:1.8;">Crèmes caramel non cuites accompagnées d'une madeleine servie tiède.</p>
+        </div>
+        <div style="text-align:right;">
+          <p class="card-label">Portions</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--gold);line-height:1;">6</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Techniques A–F -->
+    <div class="three-col" style="gap:4px;margin-bottom:4px;">
+      <div class="card">
+        <p class="card-label" style="font-size:.62rem;">A — Crèmes caramel non cuite</p>
+        <p style="font-size:.72rem;line-height:2;color:var(--cream-muted);">Mélanger la pectine avec la moitié du sucre. Faire bouillir la crème, ajouter le reste du sucre. Cuire comme une crème anglaise et ajouter le mélange sucre-pectine. Réserver au frais.</p>
+      </div>
+      <div class="card">
+        <p class="card-label" style="font-size:.62rem;">B — Crumble nature / cacao</p>
+        <p style="font-size:.72rem;line-height:2;color:var(--cream-muted);">Sabler la farine, le beurre et le sucre. Diviser la pâte en deux et ajouter le cacao dans une partie. Répartir sur des plaques et enfourner à 180 °C pendant 14 minutes.</p>
+      </div>
+      <div class="card">
+        <p class="card-label" style="font-size:.62rem;">C — Nougatine sésame noir</p>
+        <p style="font-size:.72rem;line-height:2;color:var(--cream-muted);">Torréfier le sésame noir pendant 5 minutes à 180 °C. Réaliser un caramel, ajouter le sésame noir et étaler sur une plaque.</p>
+      </div>
+      <div class="card">
+        <p class="card-label" style="font-size:.62rem;">D — Caramel</p>
+        <p style="font-size:.72rem;line-height:2;color:var(--cream-muted);">Faire chauffer le sucre en l'ajoutant en plusieurs fois. Lorsqu'il est coloré, ajouter le beurre en parcelles puis la crème chaude. Laisser refroidir.</p>
+      </div>
+      <div class="card">
+        <p class="card-label" style="font-size:.62rem;">E — Noisettes torréfiées</p>
+        <p style="font-size:.72rem;line-height:2;color:var(--cream-muted);">Torréfier les noisettes au four pendant 7 minutes à 180 °C.</p>
+      </div>
+      <div class="card">
+        <p class="card-label" style="font-size:.62rem;">F — Madeleines</p>
+        <p style="font-size:.72rem;line-height:2;color:var(--cream-muted);">Mélanger l'œuf, le sucre, la farine et la levure, puis le beurre fondu. Enfourner pendant 7 minutes à 220 °C.</p>
+      </div>
+    </div>
+
+    <!-- Tableau denrées -->
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:4px;">
+      <table style="width:100%;border-collapse:collapse;font-size:.66rem;">
+        <thead>
+          <tr style="background:rgba(201,168,76,.12);">
+            <th style="padding:12px 16px;text-align:left;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;border-bottom:1px solid var(--border);">Denrée</th>
+            <th style="padding:12px 10px;text-align:center;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;border-bottom:1px solid var(--border);">U.</th>
+            <th style="padding:12px 10px;text-align:center;color:var(--gold);border-bottom:1px solid var(--border);">A</th>
+            <th style="padding:12px 10px;text-align:center;color:var(--gold);border-bottom:1px solid var(--border);">B</th>
+            <th style="padding:12px 10px;text-align:center;color:var(--gold);border-bottom:1px solid var(--border);">C</th>
+            <th style="padding:12px 10px;text-align:center;color:var(--gold);border-bottom:1px solid var(--border);">D</th>
+            <th style="padding:12px 10px;text-align:center;color:var(--gold);border-bottom:1px solid var(--border);">E</th>
+            <th style="padding:12px 10px;text-align:center;color:var(--gold);border-bottom:1px solid var(--border);">F</th>
+            <th style="padding:12px 10px;text-align:center;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;border-bottom:1px solid var(--border);">Total</th>
+            <th style="padding:12px 10px;text-align:right;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;border-bottom:1px solid var(--border);">PU €</th>
+            <th style="padding:12px 10px;text-align:right;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;border-bottom:1px solid var(--border);">PT €</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- BOF -->
+          <tr style="background:rgba(201,168,76,.05);">
+            <td colspan="11" style="padding:8px 16px;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:.7;">B.O.F.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Beurre doux</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,200</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,025</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,025</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,250</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">5,50</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">1,375</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Crème liquide</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,500</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,100</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,600</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">7,09</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">4,254</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Œuf</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">p</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">1</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">1</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">0,43</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">0,43</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Jaune d'œuf</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,100</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,100</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">16,47</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">1,647</td>
+          </tr>
+          <!-- Économat -->
+          <tr style="background:rgba(201,168,76,.05);">
+            <td colspan="11" style="padding:8px 16px;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:.7;">Économat</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Sésame noir</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,080</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,080</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">11,33</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">0,906</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Farine T45</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,170</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,050</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,220</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">1,11</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">0,244</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Sucre</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,060</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,200</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,150</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,100</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,040</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,550</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">3,46</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">1,903</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Cacao</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,030</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,030</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">18,20</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">0,546</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Noisettes</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,060</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,060</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">47,28</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">2,837</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 16px;color:var(--cream);">Pectine</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,006</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,006</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">81,91</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">0,491</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 16px;color:var(--cream);">Levure chimique</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">kg</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">—</td>
+            <td style="padding:10px;text-align:center;color:var(--cream-muted);">0,005</td>
+            <td style="padding:10px;text-align:center;color:var(--cream);font-weight:500;">0,005</td>
+            <td style="padding:10px;text-align:right;color:var(--cream-muted);">66,00</td>
+            <td style="padding:10px;text-align:right;color:var(--cream);">0,330</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Dressage + Coûts -->
+    <div class="two-col" style="gap:4px;margin-bottom:56px;">
+      <div class="card">
+        <p class="card-label">Dressage</p>
+        <p style="font-size:.76rem;line-height:2.1;color:var(--cream-muted);">Ajouter une fine couche de caramel sur la crème, disposer les noisettes torréfiées, puis deux cuillerées de crumble au chocolat et de crumble nature. Ajouter des brisures de nougatine au sésame noir. Tiédir une madeleine. Servir.</p>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:20px;">
+          <p style="font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cream-muted);">Coût matières total</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);">14,963 <span style="font-size:1rem;color:var(--gold);">€</span></p>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <p style="font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cream-muted);">Coût portion</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold);">2,494 <span style="font-size:1rem;">€</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Argumentation commerciale -->
+    <div class="gold-divider" style="margin-top:56px;margin-bottom:48px;"></div>
+    <p style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Argumentation commerciale</p>
+
+    <div class="two-col" style="align-items:start;gap:4px;">
+
+      <div class="card">
+        <p class="card-label">Le Choco Noisette — Menu Saveur</p>
+        <p style="font-size:.8rem;line-height:2.3;color:var(--cream-muted);">
+          Le « Choco Noisette » du menu saveur est composé d'une base croustillante au sirop de cacao, garnie d'un praliné noisettes et de noisettes croquantes légèrement caramélisées.
+        </p>
+        <p style="font-size:.8rem;line-height:2.3;color:var(--cream-muted);">
+          Une onctueuse ganache montée au chocolat au lait Jivara 40 % complète ce dessert, le tout recouvert d'un siphon aérien au chocolat au lait Jivara. L'assiette est sublimée par des craquants de riz soufflé caramélisés, ainsi que des crumbles cacao et riz soufflé.
+        </p>
+      </div>
+
+      <div class="img-wrap" style="position:relative;">
+        <div style="position:absolute;top:14px;left:14px;z-index:2;background:rgba(8,8,8,.8);border:1px solid var(--border);padding:5px 12px;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);">Croquis</div>
+        <img src="images/croqui.png" alt="Croquis Choco Noisette" style="width:100%;display:block;object-fit:contain;background:var(--black-card);filter:brightness(.95);" />
+      </div>
+
     </div>
 
   </div>
 </section>
+
+<!-- ════════════════ CONCLUSION ════════════════ -->
+<section id="conclusion">
+  <div class="section-wrap">
+    <p class="section-label">Conclusion</p>
+    <h2 class="section-title">Une année de <em>progression</em></h2>
+    <div class="section-bar"></div>
+
+    <div class="two-col" style="align-items:start;margin-bottom:4px;">
+      <div>
+        <p style="font-size:.8rem;line-height:2.3;color:var(--cream-muted);margin-bottom:28px;">
+          Cette année a été une période d'apprentissage intense et diversifiée, marquée par une progression significative dans les domaines de la confiserie, de la boulangerie, et surtout de la pâtisserie. La participation à l'élaboration des cartes et des menus a permis de développer une compréhension approfondie de la variété et de la créativité inhérentes à ce métier.
+        </p>
+        <p style="font-size:.8rem;line-height:2.3;color:var(--cream-muted);">
+          L'acquisition de connaissances sur les risques spécifiques à certaines recettes, comme la ganache montée au chocolat blanc, ainsi que les techniques pour les maîtriser, représente un atout majeur.
+        </p>
+      </div>
+      <div>
+        <p style="font-size:.8rem;line-height:2.3;color:var(--cream-muted);margin-bottom:28px;">
+          La gestion de la réception des commandes a offert une perspective précieuse sur l'importance de la logistique et de la planification dans l'environnement professionnel. De plus, l'apprentissage et l'application rigoureuse des règles d'hygiène, ainsi que les méthodes de réduction des déchets, soulignent un engagement envers la qualité et la responsabilité environnementale.
+        </p>
+        <p style="font-size:.8rem;line-height:2.3;color:var(--cream-muted);">
+          Cette expérience a non seulement renforcé une passion pour la pâtisserie, mais a également fourni une base solide pour de futurs perfectionnements et défis professionnels.
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top:56px;padding:48px;border:1px solid var(--border);background:var(--black-card);position:relative;">
+      <div style="position:absolute;top:0;left:0;width:44px;height:2px;background:var(--gold);"></div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-style:italic;font-weight:300;color:var(--cream);line-height:1.8;text-align:center;max-width:700px;margin:0 auto;">
+        « Cette expérience a non seulement renforcé une passion pour la pâtisserie, mais a également fourni une base solide pour de futurs perfectionnements et <span style="color:var(--gold);">défis professionnels</span>. »
+      </p>
+      <p style="text-align:center;margin-top:24px;font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);">— Lisa Barbelin · 2025 / 2026</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ════════════════ REMERCIEMENTS ════════════════ -->
+<section id="remerciements" style="background:var(--black-soft);">
+  <div class="section-wrap">
+    <p class="section-label">Remerciements</p>
+    <h2 class="section-title"><em>Merci</em></h2>
+    <div class="section-bar"></div>
+
+    <p style="font-size:.7rem;letter-spacing:.1em;line-height:2.1;color:var(--cream-muted);max-width:700px;margin-bottom:56px;">
+      Objet : Remerciements – Certification de Spécialisation de Dessert à l'Assiette
+    </p>
+
+    <p style="font-size:.76rem;line-height:2.2;color:var(--cream-muted);max-width:760px;margin-bottom:56px;">
+      Je tiens à remercier toutes les personnes qui ont contribué à rendre cette année de Certification de Spécialisation de Dessert à l'Assiette si enrichissante.
+    </p>
+
+    <div class="three-col" style="gap:4px;">
+
+      <div class="card">
+        <p class="card-label">Chef</p>
+        <h3>M. Bertrand Heckmann</h3>
+        <p>Un grand merci à mon Chef pour sa confiance et pour m'avoir accueillie dans son établissement. Sa passion pour l'excellence a été une source d'inspiration constante. C'est grâce à lui que j'ai pu découvrir les exigences du métier.</p>
+      </div>
+
+      <div class="card">
+        <p class="card-label">Chef Pâtissier</p>
+        <h3>M. Samy Benomar</h3>
+        <p>Je remercie mon Chef Pâtissier pour son savoir-faire unique et sa patience à me transmettre les subtilités de la pâtisserie. Ses conseils avisés et son expertise ont été essentiels à mon apprentissage.</p>
+      </div>
+
+      <div class="card">
+        <p class="card-label">Chef du CFA</p>
+        <h3>Mme Mangin</h3>
+        <p>Merci à ma Chef du CFA pour son accompagnement pédagogique constant et son dévouement à notre réussite. Ses encouragements et son soutien ont été précieux tout au long de cette année.</p>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:4px;background:var(--black-card);">
+      <p class="card-label">Établissement</p>
+      <h3>CFA Henri Bazin</h3>
+      <p>Je tiens à remercier le CFA Henri Bazin pour la qualité de la formation dispensée et pour son rôle dans mon développement professionnel. C'est grâce à cette formation que j'ai pu acquérir les compétences nécessaires pour réussir dans ce domaine.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-divider"></div>
 
 <!-- ════════════════ FOOTER ════════════════ -->
 <footer>
